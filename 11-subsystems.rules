@@ -1,0 +1,24 @@
+# UDev rules for the Subsystems Pi
+# This file should be placed in /etc/udev/rules.d
+# 
+# This file allows our USB to be assigned a particular port each time, instead of the default random one. 
+# Instead of /dev/ttyACM0 and /dev/ttyACM1, we can have /dev/imu and /dev/gps
+# 
+# The general gist of this file is that it reads data about the device (SUBSYSTEM and ATTRS), and, 
+# based on the below rules, adds an alias for that device (SYMLINK). Each physical device may be 
+# registered multiple times with the OS, so we use multiple checks (like USB port and video4linux).
+# 
+# Resources: 
+# - To see info for a device, run `udevadm info -a -n /dev/deviceName`
+# - For guidance on writing these kinds of files, see 
+#   https://bing-rover.gitbook.io/docs/v/software/onboard-computers/video/udev-rules
+
+# IMU: /dev/imu
+SUBSYSTEM=="video4linux", ATTRS{interface}=="Intel(R) RealSense(TM) Depth Camera 435i RGB", SYMLINK+="realsense_rgb"
+
+# GPS: /dev/gps
+SUBSYSTEM=="video4linux", ATTRS{interface}=="Intel(R) RealSense(TM) Depth Camera 435i Depth", SYMLINK+="realsense_depth"
+
+# Example: DELETE AFTER FILE IS FINALIZED
+SUBSYSTEMS=="usb", KERNELS=="1-1.4", ENV{IS_REAR}="t"
+SUBSYSTEMS=="video4linux", ATTR{index}=="0", ENV{IS_REAR}=="t", SYMLINK+="rear_camera"
