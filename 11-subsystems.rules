@@ -14,11 +14,13 @@
 #   https://bing-rover.gitbook.io/docs/v/software/onboard-computers/video/udev-rules
 
 # IMU: /dev/imu
-SUBSYSTEM=="video4linux", ATTRS{interface}=="Intel(R) RealSense(TM) Depth Camera 435i RGB", SYMLINK+="realsense_rgb"
+SUBSYSTEMS=="usb", ATTRS{manufacturer}=="u-blox AG - www.u-blox.com", ENV{IS_IMU}="t"
+SUBSYSTEM=="tty", ENV{IS_IMU}=="t", SYMLINK+="imu"
+
 
 # GPS: /dev/gps
-SUBSYSTEM=="video4linux", ATTRS{interface}=="Intel(R) RealSense(TM) Depth Camera 435i Depth", SYMLINK+="realsense_depth"
+# SUBSYSTEM=="video4linux", ATTRS{interface}=="Intel(R) RealSense(TM) Depth Camera 435i Depth", SYMLINK+="gps"
 
-# Example: DELETE AFTER FILE IS FINALIZED
-SUBSYSTEMS=="usb", KERNELS=="1-1.4", ENV{IS_REAR}="t"
-SUBSYSTEMS=="video4linux", ATTR{index}=="0", ENV{IS_REAR}=="t", SYMLINK+="rear_camera"
+# # Example: DELETE AFTER FILE IS FINALIZED
+# SUBSYSTEMS=="usb", KERNELS=="1-1.4", ENV{IS_REAR}="t"
+# SUBSYSTEMS=="video4linux", ATTR{index}=="0", ENV{IS_REAR}=="t", SYMLINK+="rear_camera"
