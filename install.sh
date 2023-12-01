@@ -8,11 +8,6 @@ git submodule update --init > /dev/null
 echo "Building Subsystems..."
 cd Subsystems/src
 make >/dev/null
-# Add this export to ~/.bashrc if it's not already there
-if ! grep -Exq "export LD_LIBRARY_PATH.+Subsystems/dist" ~/.bashrc
-then
-  echo "export LD_LIBRARY_PATH=\$LD_LIBRARY_PATH:$(pwd)/dist" >> ~/.bashrc
-fi
 cd ../..
 
 echo "Compiling the Subsystems program. This could take about 1 minute..."
