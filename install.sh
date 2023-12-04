@@ -12,7 +12,7 @@ cd ../..
 
 echo "Compiling the Subsystems program. This could take about 1 minute..."
 cd Subsystems
-dart pub get > /dev/null
+dart pub get --offline > /dev/null
 dart compile exe bin/subsystems.dart -o ~/subsystems.exe > /dev/null
 cd ..
 
