@@ -1,0 +1,5 @@
+## Monorepo for the Subsystems Raspberry Pi
+To update all submodules (sub-repositories) at the same time use:
+```bash
+git submodule update --init --recursive
+```
